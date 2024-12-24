@@ -1,0 +1,21 @@
+:root {
+  /* Colors */
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-text: #1a1a1a;
+  --color-text-light: #4a4a4a;
+  
+  /* Animations */
+  --transition-standard: 0.2s ease;
+  --transition-bounce: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  
+  /* Gradients */
+  --gradient-text: linear-gradient(to right, #1a1a1a, #4a4a4a);
+  --gradient-bg: linear-gradient(180deg, rgba(248, 250, 252, 0) 0%, rgba(248, 250, 252, 0.8) 100%);
+} 

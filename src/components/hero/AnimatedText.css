@@ -1,0 +1,41 @@
+.animated-text-container {
+  background-color: white;
+  padding: 0.125rem 0.75rem;
+  border-radius: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 50px;
+  min-height: 1.5em;
+  width: auto;
+  overflow: hidden;
+  transition: all 300ms ease-in-out;
+}
+
+.animated-text-wrapper {
+  display: inline-block;
+  width: 100%;
+  font-family: var(--font-body);
+  font-weight: var(--font-regular);
+  color: var(--gray-1);
+  text-align: left;
+  white-space: nowrap;
+  transition: all 300ms ease-in-out;
+}
+
+.typewriter-cursor {
+  margin-left: 0.125rem;
+  color: var(--gray-1);
+  font-weight: normal;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.typewriter-text {
+  transition: all 300ms ease-in-out;
+} 

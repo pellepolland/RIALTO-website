@@ -1,57 +1,59 @@
-import { FC } from 'react'
-import { motion } from 'framer-motion'
+import { FC, useEffect, useState } from 'react'
 import './Navbar.css'
+import monogram from '../assets/images/RIALTO_Monogram_White.png'
 
 const Navbar: FC = () => {
-  const navVariants = {
-    hidden: { y: -100, opacity: 0 },
-    visible: { 
-      y: 0, 
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  }
+  const [showLogo, setShowLogo] = useState(false)
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
-  const linkVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
+  useEffect(() => {
+    const updateScroll = () => {
+      const viewportHeight = window.innerHeight
+      setShowLogo(window.scrollY > viewportHeight - 100)
     }
+    
+    window.addEventListener('scroll', updateScroll)
+    window.addEventListener('resize', updateScroll)
+    updateScroll()
+    
+    return () => {
+      window.removeEventListener('scroll', updateScroll)
+      window.removeEventListener('resize', updateScroll)
+    }
+  }, [])
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    setIsTransitioning(true)
+    
+    // Wait for fade out
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' })
+      // Wait a bit after scroll before fading back in
+      setTimeout(() => {
+        setIsTransitioning(false)
+      }, 50)
+    }, 400) // Match this with CSS transition duration
   }
 
   return (
-    <motion.nav 
-      className="navbar"
-      initial="hidden"
-      animate="visible"
-      variants={navVariants}
-    >
-      <div className="container">
-        <motion.div 
-          className="logo"
-          variants={linkVariants}
-        >
-          RIALTO
-        </motion.div>
-        <motion.ul 
-          className="nav-links"
-          variants={linkVariants}
-        >
-          <li><a href="#features">Features</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </motion.ul>
-      </div>
-    </motion.nav>
+    <>
+      <nav className="navbar">
+        <div className="nav-content">
+          <div className={`logo ${showLogo ? 'visible' : ''}`}>
+            <a href="#" onClick={handleLogoClick}>
+              <img src={monogram} alt="RIALTO" className="monogram" />
+            </a>
+          </div>
+          <div className="nav-links">
+            <a href="#manifesto">MANIFESTO</a>
+            <a href="#vibes">VIBES</a>
+            <a href="#waitlist" className="shimmer">JOIN WAITLIST</a>
+          </div>
+        </div>
+      </nav>
+      <div className={`page-transition ${isTransitioning ? 'active' : ''}`} />
+    </>
   )
 }
 
